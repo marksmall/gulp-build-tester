@@ -1,0 +1,147 @@
+<div class="row">
+  <div class="col-lg-offset-1 col-lg-10 dm-form-view">
+
+    <div *ngIf="view === formView.Wait">
+      Please wait ...
+    </div>
+
+    <!-- Error view, the message retrieved from the server -->
+    <div *ngIf="view === formView.Error">
+      <div class="alert alert-danger">
+        <p><strong>Error!</strong> The following problem has occured: </p>
+        <ul>
+          <li>{{errorMessage}}</li>
+        </ul>
+      </div>
+      <p>
+          If the problem persists, please contact the EDINA Helpdesk at <a href="mailto:edina@ed.ac.uk">edina@ed.ac.uk</a>
+          or telephone 0131 650 3302 to resolve this problem.
+      </p>
+      <button type="button" class="btn btn-success" (click)="navigate()">Continue</button>
+    </div>
+
+    <form class="form-horizontal" [formGroup]="notUserForm" (ngSubmit)="setNotUser()">
+
+      <!-- Main form view, including preamble -->
+      <div *ngIf="view === formView.Form">
+        <h4>Not you?</h4>
+        <div class="alert alert-warning">
+          It is a breach of the terms and conditions of the service to login to the service with another
+          person's details.
+        </div>
+
+        <p>
+          If you <span class="highlight">are</span> <strong>{{user.fullname}}</strong> and have reached
+          this page in error, please return to the <a [routerLink]="['Welcome']">Homepage</a>.
+        </p>
+
+        <p>
+          If you <span class="highlight">are not</span> <strong>{{user.fullname}}</strong> and have reached
+          this page in error, please close this tab.
+        </p>
+
+        <ul>
+          <li>
+            The previous user of the computer failed to logout correctly. You should logout of Digimap by
+            closing your browser windows or logging back in using your own personal account.
+          </li>
+          <li><em>or:</em></li>
+          <li>
+            If you are sure you have logged in with your own account, please fill out your details in the
+            form below and then click on the <strong>Submit</strong> button. We will contact you within
+            one working day.
+          </li>
+        </ul>
+
+        Fields marked with <em>*</em> are mandatory.
+        <div class="form-group">
+          <label for="name" class="col-xs-2 control-label">Name:<em>*</em></label>
+          <div class="col-xs-5">
+            <input id="name" type="text" class="form-control" formControlName="name" [(ngModel)]="user.name">
+            <control-messages [control]="notUserForm.controls.name"></control-messages>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email" class="col-xs-2 control-label">Email:<em>*</em></label>
+          <div class="col-xs-5">
+            <input id="email" type="email" class="form-control" formControlName="email" [(ngModel)]="user.email">
+            <control-messages [control]="notUserForm.controls.email"></control-messages>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="institution" class="col-xs-2 control-label">Institution: <em>*</em></label>
+          <div class="col-xs-5">
+            <select id="institution" class="form-control" formControlName="institution" [(ngModel)]="user.institution">
+              <option *ngFor="let inst of user.institutions" [value]="inst">{{inst}}</option>
+            </select>
+            <control-messages [control]="notUserForm.controls.institution"></control-messages>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="comments" class="col-xs-2 control-label">Comments:</label>
+          <div class="col-xs-5">
+            <textarea id="comments" class="form-control" formControlName="comments" [(ngModel)]="user.comments" rows="10"></textarea>
+          </div>
+        </div>
+
+        <div class="col-xs-offset-1">
+          <button type="button" class="btn btn-default" [disabled]="!hasChanged()" (click)="reset()">Reset</button>
+          <button type="button" class="btn btn-success" [disabled]="!canSubmit()" (click)="view = formView.Summary">Next</button>
+        </div>
+      </div>
+
+      <!-- Summary page: summarise information for user before submission -->
+      <div *ngIf="view === formView.Summary">
+        <h2>You have entered the following details. Please check these before pressing submit</h2>
+        <div class="row">
+          <div class="col-xs-3">Name:</div>
+          <div class="col-xs-9  text-left">{{ user.name }}</div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">Email</div>
+          <div class="col-xs-9 text-left">{{ user.email }}</div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">Institution</div>
+          <div class="col-xs-9 text-left">{{ user.institution }}</div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">Comments</div>
+          <div class="col-xs-9 text-left">{{ user.comments }}</div>
+        </div>
+        <br>
+
+        <button type="button" class="btn btn-default" (click)="view = formView.Form">Back</button>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </div>
+    </form>
+
+    <!-- Success view: form has been submitted successfully -->
+    <div *ngIf="view === formView.SuccessConfirmation">
+      <div class="alert alert-success"> <strong>Success!</strong> </div>
+      <p>
+        Your request will be dealt with as soon as possible and you will receive an email outlining what to do next.
+        Please do not use the Digimap service until you have been contacted and the problem has been resolved.
+      </p>
+      <p>
+        It is a breach of the terms and  conditions of the service to login to the service
+        with another person's details.
+      </p>
+      <button type="button" class="btn btn-success" (click)="navigate()">Continue</button>
+    </div>
+
+    <!-- Error view: form has been submitted but there's been an error -->
+    <div *ngIf="view === formView.ErrorConfirmation">
+      <div class="alert alert-danger"> <strong>Error!</strong> There has been a problem submitting your details.</div>
+      <p>
+        Please contact EDINA Helpdesk at <a href="mailto:edina@ed.ac.uk">edina@ed.ac.uk</a> or telephone 0131 650 3302
+        to resolve this problem.
+      </p>
+      <p>It is a breach of the terms and  conditions of the service to login to the service with another person's details.</p>
+      <button type="button" class="btn btn-success" (click)="navigate()">Continue</button>
+    </div>
+
+  </div>
+</div>

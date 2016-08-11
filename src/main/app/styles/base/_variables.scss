@@ -1,0 +1,50 @@
+//
+// Variables
+//
+// NOTE this file is shared by both main.scss and vendor.scss
+
+
+// Bootstrap Overrides
+$icon-font-path: '../fonts/';
+
+$black: #000;
+$font-color-default: rgba(0, 0, 0, .8);
+
+$default-font-family: 'Myriad Pro Regular';
+$default-font-size: 1.5em;
+
+$primary-color: #2c3e62;
+$secondary-color: #fff;
+
+$brand-primary: #6cf;
+$brand-success: #5cb85c;
+$brand-danger: #d9534f;
+$brand-info: $brand-primary;
+$btn-info-color: $primary-color;
+
+// The collection application buttons
+$btn-primary-bg: transparent;
+$btn-primary-color: $brand-primary;
+$btn-primary-border: #7c8fad;
+
+$state-warning-text: #fc0;
+
+$inverse-color: #e4e9ec;
+$active-color: $secondary-color;
+// $active-inverse-color: #1495fa;
+
+$valid-color: $brand-success;
+$error-color: $brand-danger;
+
+$alert-warning-text: #8a6d3b;
+
+// We need to shift the collections a few pixels down to make the edge of the blur effect
+// look better. However, we also shift the whole parent div up by the same amount
+// to eliminate the gap created at the top by doing this.
+$blur-top-margin: 5px;
+
+// The minimum height used for the components on the home page
+// This helps line them up vertically
+$home-component-height: 600px;
+
+$footer-height: 125px;

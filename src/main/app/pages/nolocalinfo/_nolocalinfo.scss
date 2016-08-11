@@ -1,0 +1,16 @@
+.no-local-info {
+  font-size: 1.1em;
+  padding: 1em;
+
+  .alert {
+    margin-bottom: 0;
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+
+  p + p {
+    margin-top: 1em;
+  }
+}

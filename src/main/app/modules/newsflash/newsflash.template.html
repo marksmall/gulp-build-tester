@@ -1,0 +1,12 @@
+<div *ngIf="hasNewsflash()" class="header-alert">
+  <div class="alert alert-warning row no-gutters newsflash">
+    <div class="alert-offset">
+      <a href="#" class="close" data-dismiss="alert">&times;</a>
+      <ul>
+        <li *ngFor="let item of newsflash">
+          <span [innerHTML]="item"></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

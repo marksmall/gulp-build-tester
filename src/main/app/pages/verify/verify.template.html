@@ -1,0 +1,45 @@
+<!-- Displayed while waiting for the response from the server. This should
+     not contain the header -->
+<div *ngIf="waitForVerification" class="container-fluid top">
+  We are verifying your code, please wait...
+</div>
+
+<div *ngIf="!waitForVerification" class="container-fluid top">
+  <header></header>
+
+  <div *ngIf="success" class="container">
+    <p class="alert alert-success">
+      <strong>Success!</strong> You have successfully verified your email address.
+    </p>
+    <p>
+      You now need to agree to the licence agreements for each collection.
+    </p>
+    <p>
+      Click on the button below to access Digimap and
+      agree to the licences to collections.
+    </p>
+    <div *ngIf="user" class="pull-right">
+      <button class="btn btn-success" (click)="navigateLicence()">Agree Licences</button>
+    </div>
+    <div *ngIf="!user" class="pull-right">
+      <button class="btn btn-success" (click)="navigateHome()">Access Digimap</button>
+    </div>
+  </div>
+
+  <div *ngIf="failure" class="container">
+    <p class="alert alert-danger">
+      Sorry, the link supplied has expired.
+    </p>
+    <p>
+      Your verification link has expired, please register again.
+    </p>
+    <div class="pull-right">
+      <button class="btn btn-success" (click)="navigateHome()">Access Digimap</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="bottom">
+  <footer></footer>
+</div>

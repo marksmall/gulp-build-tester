@@ -1,0 +1,59 @@
+.header {
+  background-color: $secondary-color;
+  position: relative;
+  z-index: 3;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.3em;
+}
+
+.header-strapline {
+  margin: 0;
+  font-size: 1em;
+  font-weight: bold;
+  align-self: flex-end;
+}
+
+.digimap-logo {
+  width: 15em;
+  height: 5em;
+}
+
+.header-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 50%;
+
+  div {
+    padding: .3em 0;
+  }
+ }
+
+.resource-btn {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+// Need to specify li here to override bootstrap otherwise
+// the selector isn't specific enough
+.header-top-btns {
+  li {
+    a {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+}
+
+.header-bottom-btns {
+  li {
+    a {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}

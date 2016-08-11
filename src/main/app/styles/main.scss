@@ -1,0 +1,47 @@
+//
+// Main stylesheet.
+// Should import all the other stylesheets
+//
+// Variables, functions, mixins and utils
+
+// Our base variables
+@import 'base/_variables';
+
+// bootstrap variables
+@import '../../../../jspm_packages/github/twbs/bootstrap-sass@3.3.6/assets/stylesheets/bootstrap/_variables.scss'; // the path refers to the file at BUILD time
+@import '../../../../jspm_packages/github/twbs/bootstrap-sass@3.3.6/assets/stylesheets/bootstrap/_mixins.scss'; // the path refers to the file at BUILD time
+
+@import 'base/_functions';
+@import 'base/_mixins';
+// Base/generic style rules
+@import 'base/_fonts';
+@import 'base/_typography';
+@import 'base/_base';
+// Layout
+@import 'layout/_layout';
+@import 'layout/_theme';
+@import 'layout/_print';
+// Components
+@import '../modules/header/_header';
+@import '../modules/footer/_footer';
+@import '../modules/updateuser/_update-user';
+@import '../modules/registeruser/_register-user';
+@import '../modules/activatecollections/_activatecollections';
+@import '../modules/blog/_blog';
+@import '../modules/newsflash/_newsflash';
+@import '../modules/jiscbanner/_jisc-banner';
+@import '../modules/notuser/_not-user';
+@import '../modules/verify/_verify-notification.scss';
+// Pages
+@import '../pages/home/_home';
+@import '../pages/home/collections/_collection';
+@import '../pages/logout/_logout';
+@import '../pages/update/_update';
+@import '../pages/registration/_registration';
+@import '../pages/activate/_activate';
+@import '../pages/notuser/_notuser';
+@import '../pages/verify/_verify';
+@import '../pages/nolocalinfo/_nolocalinfo';
+// Tests
+@import 'tests/tests';
+

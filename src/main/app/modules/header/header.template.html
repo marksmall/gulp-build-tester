@@ -1,0 +1,54 @@
+<simple-notifications (click)="navigate()"></simple-notifications>
+<div class="row no-gutters header">
+  <div class="col-lg-offset-1 col-lg-10 header-content">
+    <a [routerLink]="['Welcome']">
+      <img class="digimap-logo" alt="Digimap Logo" src="images/misc/digimap-logo.svg" data-inline="false"/>
+    </a>
+
+    <p class="header-strapline text-center hidden-xs hidden-sm">
+      Maps &amp; geospatial data for UK academia
+    </p>
+
+    <div class="header-nav">
+      <ul class="nav nav-pills header-top-btns">
+        <li *ngIf="user" role="presentation" class="dropdown">
+          <a class="btn btn-main dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            My Digimap <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li *ngIf="isRegisteredUser(user)"><a [routerLink]="['Update']">Change User Details</a></li>
+            <li><a href="{{ user.institution.supportUrl }}" target="dm_siterep_support">Local Support Information</a></li>
+            <li *ngIf="user.roles.admin || user.roles.siterep" class="divider"></li>
+            <li *ngIf="user.roles.admin"><a href="/digiadmin/">DigiAdmin</a></li>
+            <li *ngIf="user.roles.siterep"><a href="/siterep/">Site Rep Service</a></li>
+          </ul>
+        </li>
+        <li *ngIf="isNewUser(user)"><a [routerLink]="['Register']" class="btn btn-main">Register</a></li>
+        <li *ngIf="isPendingUser(user)"><a (click)="resendVerification()" class="btn btn-main">Resend Email Verification</a></li>
+        <li *ngIf="furtherActivations(user)"><a [routerLink]="['Activate']" class="btn btn-main">Licence Agreements</a></li>
+        <li *ngIf="user"><a [routerLink]="['Logout']" class="btn btn-main">Logout</a></li>
+        <li *ngIf="!user"><a class="btn btn-main" href="{{loginUrl}}">Login</a></li>
+      </ul>
+
+      <div>
+        <span *ngIf="!user">
+          Please login to access applications.
+          <a href="/webhelp/digimapsupport/about.htm#access/login_help.htm">How?</a>
+        </span>
+        <span *ngIf="user && (!isNewUser(user))">
+          Welcome {{user.firstName}} {{user.surname}}, not <a [routerLink]="['NotUser']">{{user.firstName}}?</a>
+        </span>
+        <span *ngIf="isNewUser(user)">
+          You need to register.
+          <a href="/webhelp/digimapsupport/about.htm#access/registration_help.htm">How?</a>
+        </span>
+      </div>
+
+      <ul class="nav nav-pills header-bottom-btns">
+        <li>
+          <a class="btn btn-main resource-btn" href="/webhelp/resources/index.html">Resource Centre</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

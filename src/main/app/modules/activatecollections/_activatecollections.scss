@@ -1,0 +1,55 @@
+.activate-collections {
+  .panel-heading {
+    &.active {
+      background-color: $valid-color;
+      color: darken($valid-color, 20%);
+    }
+
+    &.deactivated {
+      background-color: $error-color;
+      color: darken($error-color, 20%);
+    }
+
+    &.queried {
+      background-color: $brand-warning;
+      color: darken($brand-warning, 20%);
+    }
+  }
+
+  .panel-title {
+    font-size: 1em;
+  }
+
+  .chevron-toggle {
+    display: block;
+
+    &::after {
+      margin: 1em 1em 0 0;
+      font-family: 'Glyphicons Halflings';
+      content: '\e114';
+      float: right;
+    }
+
+    &.collapsed {
+      &::after {
+        content: '\e080';
+      }
+    }
+
+    .collection-icon {
+      svg {
+        width: 3em;
+        height: 3em;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+.licence-area {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 1em;
+  height: 16em;
+  overflow-y: scroll;
+}

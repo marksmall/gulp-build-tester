@@ -1,0 +1,35 @@
+<div *ngIf="waitForLogout" class="container-fluid top">
+  We are logging you out, please wait...
+</div>
+
+<div *ngIf="!waitForLogout" class="container-fluid top">
+  <header></header>
+  <div class="dm-form-view">
+    <div class="container">
+
+      <div class="view">
+        <div *ngIf="success" class="alert alert-warning">
+          <p>To logout please do the following:</p>
+          <ul>
+            <li>Close this web browser (including ALL tabs and windows).</li>
+          </ul>
+        </div>
+        <div *ngIf="!success" class="alert alert-danger">
+          <p>Digimap has encountered an unexpected error. To logout please do the following:</p>
+          <ul>
+            <li>Close this web browser (including ALL tabs and windows).</li>
+          </ul>
+        </div>
+        <p>
+          If you do not do this another person using this computer after you may
+          be able to access Digimap using your credentials.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="bottom">
+  <footer></footer>
+</div>

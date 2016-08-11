@@ -1,0 +1,12 @@
+//
+// SCSS variable overrides go here *before* any imports
+//
+
+@import 'base/_variables';
+
+//
+// Includes/imports all third-party stylesheets used throughout the application.
+// Should be loaded before the application stylesheets
+//
+@import '../../../../jspm_packages/github/necolas/normalize.css@3.0.3/normalize.css'; // the path refers to the file at BUILD time
+@import '../../../../jspm_packages/github/twbs/bootstrap-sass@3.3.6/assets/stylesheets/_bootstrap.scss'; // the path refers to the file at BUILD time

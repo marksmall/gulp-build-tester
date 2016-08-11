@@ -1,0 +1,205 @@
+<div class="row">
+  <div class="col-lg-offset-1 col-lg-10 dm-form-view">
+
+    <div *ngIf="view === formView.Wait">
+      Please wait ...
+    </div>
+
+    <!-- Error view, the message retrieved from the server -->
+    <div *ngIf="view === formView.Error">
+      <div class="alert alert-danger">
+        <p><strong>Error!</strong> The following problem has occured: </p>
+        <ul>
+          <li>{{errorMessage}}</li>
+        </ul>
+      </div>
+      <p>
+          If the problem persists, please contact the EDINA Helpdesk at <a href="mailto:edina@ed.ac.uk">edina@ed.ac.uk</a>
+          or telephone 0131 650 3302 to resolve this problem.
+      </p>
+      <button type="button" class="btn btn-success" (click)="navigate()">Continue</button>
+    </div>
+
+    <form class="form-horizontal" [formGroup]="updateUserForm" (ngSubmit)="updateUser()">
+
+      <div *ngIf="view === formView.Form">
+        <h3>Change User Details</h3>
+        <p>
+          These are the details EDINA holds for your Digimap registration. Please check and amend them where
+          appropriate. In particular, please check that your <strong>email</strong> address is acurate.
+        </p>
+
+        <div class="alert alert-warning">
+          If the details below do not apply to you, please close the browser and login to Digimap again,
+          or contact EDINA.
+        </div>
+
+        <p>
+          If you are no longer a member of a subscribing institution or if you have moved from one institution
+          to another, please contact EDINA Helpdesk on 0131 650 3302 or
+          <a href="mailto:edina@ed.ac.uk">edina@ed.ac.uk</a>
+        </p>
+
+        <div class="form-group">
+          <label for="digimapid" class="col-xs-2 control-label">Digimap ID:</label>
+          <div class="col-xs-5">
+            <p id="digimapid" class="form-control-static">{{user.username}}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="institution" class="col-xs-2 control-label">Institution:</label>
+          <div class="col-xs-5">
+            <p id="institution" class="form-control-static">{{user.institutionName}}</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="title" class="col-xs-2 control-label">Title:</label>
+          <div class="col-xs-5">
+            <select id="title" class="form-control" formControlName="title" [(ngModel)]="user.title">
+              <option *ngFor="let title of titles" value="{{title}}">{{title}}</option>
+            </select>
+            <control-messages [control]="updateUserForm.controls.title"></control-messages>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="firstName" class="col-xs-2 control-label">First Name:</label>
+          <div class="col-xs-5">
+            <input id="firstName" type="text" class="form-control" formControlName="firstName" [(ngModel)]="user.firstName">
+            <control-messages [control]="updateUserForm.controls.firstName"></control-messages>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="surname" class="col-xs-2 control-label">Surname:</label>
+          <div class="col-xs-5">
+            <input id="surname" type="text" class="form-control" formControlName="surname" [(ngModel)]="user.surname">
+            <control-messages [control]="updateUserForm.controls.surname"></control-messages>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email" class="col-xs-2 control-label">Email:</label>
+          <!-- Change email disabled to match existing form -->
+          <div class="col-xs-5">
+            <p id="email" class="form-control-static">{{user.email}}</p>
+            <label>To change your email, please contact the <a href="edina@ed.ac.uk">EDINA Helpdesk</a></label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="existingDepartment" class="col-xs-2 control-label">Department:</label>
+          <div class="col-xs-5">
+            <select id="existingDepartment" class="form-control" formControlName="existingDepartment" [(ngModel)]="existingDepartment">
+              <option *ngFor="let dept of user.institutionDepartments" value="{{dept}}">{{dept}}</option>
+              <option value="">-- Request new department --</option>
+            </select>
+            <control-messages [control]="updateUserForm.controls.existingDepartment"></control-messages>
+          </div>
+        </div>
+        <div *ngIf="existingDepartment === ''">
+          <div class="form-group">
+            <label for="newDepartment" class="col-xs-2 control-label">Request new department</label>
+            <div class="col-xs-5">
+              <input id="newDepartment" type="text" class="form-control" formControlName="newDepartment" [(ngModel)]="newDepartment">
+              <control-messages [control]="updateUserForm.controls.newDepartment"></control-messages>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-xs-10">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"  formControlName="marketingContactable" [(ngModel)]="user.marketingContactable" />
+                Yes, I’d like to receive information about Digimap and other EDINA geospatial services including
+                newsletters and webinars. You can unsubscribe at any time. (Please tick box)
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-xs-10">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"  formControlName="supportContactable" [(ngModel)]="user.supportContactable" />
+                Yes, I’d like to be added to the Digimap Support email list to receive important information about
+                the Digimap service and invitations to training and events. This list is aimed at any staff that
+                support the use of Digimap. You can unsubscribe at any time. (Please tick box)
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-offset-1">
+          <button type="button" class="btn btn-default" [disabled]="!hasChanged()" (click)="resetUser()">Reset</button>
+          <button type="button" class="btn btn-success" [disabled]="!canSubmit()" (click)="view = formView.Summary">Next</button>
+        </div>
+      </div>
+
+      <div *ngIf="view === formView.Summary">
+        <h2>You have entered the following details. Please check these before pressing submit</h2>
+        <div class="row">
+          <div class="col-xs-3">First Name:</div>
+          <div class="col-xs-9  pull-left">{{ user.firstName }}</div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">Surname:</div>
+          <div class="col-xs-9 pull-left">{{ user.surname }}</div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">Email</div>
+          <div class="col-xs-9 pull-left">{{ user.email }}</div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">Department</div>
+          <div class="col-xs-9 pull-left">{{ user.department }}</div>
+        </div>
+        <div class="row">
+          <div *ngIf="user.marketingContactable">
+            Yes, I’d like to receive information about Digimap and other EDINA geospatial services including
+            newsletters and webinars.
+          </div>
+          <div *ngIf="!user.marketingContactable">
+            No, I do not wish to receive information about Digimap and other EDINA geospatial services.
+          </div>
+        </div>
+        <div class="row">
+          <div *ngIf="user.supportContactable">
+            Yes, I’d like to be added to the Digimap Support email list to receive important information about
+            the Digimap service and invitations to training and events.
+          </div>
+          <div *ngIf="!user.supportContactable">
+            No, I do not wish to be added to the Digimap Support email list.
+          </div>
+        </div>
+        <br>
+        <button type="button" class="btn btn-default" (click)="view = formView.Form">Back</button>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </div>
+
+    </form>
+
+    <!-- Success view: form has been submitted successfully -->
+    <div *ngIf="view === formView.SuccessConfirmation">
+      <div class="alert alert-success"> <strong>Success!</strong> </div>
+      <p>Thank you for changing your user details.</p>
+      <p>
+        Changes to your personal details will update immediately. Changes to your email address will be processed
+        by the Helpdesk, Mon - Fri 9am - 5pm. You will receive notification when the change has been processed.
+      </p>
+      <p>
+        If you have any queries, please contact the EDINA Helpdesk on 0131 650 3302 or
+        <a href="mailto:edina@ed.ac.uk">edina@ed.ac.uk</a>.
+      </p>
+      <button type="button" class="btn btn-success" (click)="navigate()">Continue</button>
+    </div>
+
+    <!-- Error view: form has been submitted but there's been an error -->
+    <div *ngIf="view === formView.ErrorConfirmation">
+      <div class="alert alert-danger"> <strong>Error!</strong> There has been a problem submitting your details.</div>
+      <p>
+        Please contact EDINA Helpdesk at <a href="mailto:edina@ed.ac.uk">edina@ed.ac.uk</a> or telephone 0131 650 3302
+        to resolve this problem.
+      </p>
+      <button type="button" class="btn btn-success" (click)="navigate()">Continue</button>
+    </div>
+
+  </div>
+</div>

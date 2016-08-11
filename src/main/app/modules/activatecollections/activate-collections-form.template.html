@@ -1,0 +1,176 @@
+<div class="row">
+  <div class="col-lg-offset-1 col-lg-10 dm-form-view">
+
+    <div *ngIf="view === formView.Wait">
+      Please wait ...
+    </div>
+
+    <!-- Error view, the message retrieved from the server -->
+    <div *ngIf="view === formView.Error">
+      <div class="alert alert-danger">
+        <p><strong>Error!</strong> The following problem has occured: </p>
+        <ul>
+          <li>{{errorMessage}}</li>
+        </ul>
+      </div>
+      <p>
+          If the problem persists, please contact the EDINA Helpdesk at <a href="mailto:edina@ed.ac.uk">edina@ed.ac.uk</a>
+          or telephone 0131 650 3302 to resolve this problem.
+      </p>
+      <button type="button" class="btn btn-success" (click)="navigate()">Continue</button>
+    </div>
+
+    <div *ngIf="(view === formView.Form || view === formView.Summary) && activations" class="activate-collections">
+      <form class="form-horizontal" [formGroup]="activateCollectionsForm" (ngSubmit)="activateCollections()">
+
+        <div *ngIf="view === formView.Form">
+          <h4>Digimap Collections Licence Agreements</h4>
+          <p>
+            Please choose the Digimap collection(s) you wish to access and agree to their licence agreements.
+          </p>
+          <p>
+            Note, only those to which your institution subscribes to are included.
+          </p>
+          <div class="panel-group" id="activation-accordion" role="tablist" aria-multiselectable="false">
+            <div *ngFor="let activation of activations" class="panel panel-default">
+              <div [ngClass]="headingStyles[activation.id]"
+                   id="{{activation.id}}-activation" role="tab">
+                <h4 class="panel-title">
+                  <a class="chevron-toggle collapsed"
+                     data-toggle="collapse"
+                     data-parent="#activation-accordion"
+                     href="#collapse-{{activation.id}}-activation"
+                     aria-expanded="false"
+                     [attr.aria-controls]="'collapse-' + activation.id + '-activation'">
+                    <span class="collection-icon"><dynamic-svg svg="{{getIcon(activation)}}"></dynamic-svg></span>
+                    <strong>{{activation.name}}</strong>
+                    <span>{{activation.state}}</span>
+                  </a>
+                </h4>
+              </div>
+              <div id="collapse-{{activation.id}}-activation"
+                   class="panel-collapse collapse"
+                   role="tabpanel"
+                   [attr.aria-labelledby]="activation.id + '-activation'">
+                <div class="panel-body">
+                  <div ngModelGroup="{{activation.id}}Group">
+                    <div class="form-group">
+                      <div class="col-xs-11">
+                        <div class="form-control-static licence-area" [innerHTML]="getLicence(activation)" rows="6"></div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-xs-10">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox"
+                                  formControlName="licenceAccepted"
+                                  [(ngModel)]="activation.licenceAccepted"
+                                  [disabled]="disableLicence(activation)"/>
+                            I Accept. By checking this box I agree to the terms of use for this collection.
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-xs-2">
+                        <a href="{{getPrinterFriendlyLink(activation)}}" target="_blank">Printer friendly version</a>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-xs-5">
+                        <select class="form-control" formControlName="purpose" [(ngModel)]="activation.purpose.id" [disabled]="isPurposeDisabled(activation)">
+                          <option *ngFor="let purpose of activation.purposes" [value]="purpose.id">{{purpose.purpose}}</option>
+                        </select>
+                        <control-messages [control]="activateCollectionsForm.controls[activation.id + 'Group'].find('purpose')"></control-messages>
+                      </div>
+                    </div>
+                    <div *ngIf="showOtherPurpose(activation)">
+                      <div class="col-xs-12">
+                        <label class="control-label">Please provide details of your intended use of the {{activation.name}}.</label>
+                      </div>
+                      <div class="col-xs-11">
+                        <textarea class="form-control" formControlName="otherPurpose" [(ngModel)]="activation.otherPurpose" [disabled]="isPurposeDisabled(activation)"></textarea>
+                        <control-messages [control]="activateCollectionsForm.controls[activation.id + 'Group'].find('otherPurpose')"></control-messages>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-default" [disabled]="!hasChanged()" (click)="reset()">Reset</button>
+          <button type="button" class="btn btn-success" [disabled]="!canSubmit()" (click)="view = formView.Summary">Next</button>
+        </div>
+
+        <!-- Next view -->
+        <div *ngIf="view === formView.Summary">
+          <div *ngIf="hasNewActivations()">
+            <p>You have requested access to the following collection(s):</p>
+            <ul *ngFor="let activation of activations">
+              <li *ngIf="activation.licenceAccepted === true && activation.state === 'NOT_ACTIVATED'">{{activation.name}}</li>
+            </ul>
+          </div>
+          <div *ngIf="hasActivationsInState('ACTIVE')">
+            <p>You have Existing activated access to the following collection(s):</p>
+            <ul *ngFor="let activation of activations">
+              <li *ngIf="activation.state === 'ACTIVE'">{{activation.name}}</li>
+            </ul>
+          </div>
+          <div *ngIf="hasActivationsInState('QUERIED')">
+            <p>You selected 'other' as you purpose for using the following collection(s):</p>
+            <ul *ngFor="let activation of activations">
+              <li *ngIf="activation.state === 'QUERIED'">{{activation.name}}</li>
+            </ul>
+            <p>Your request for access will be checked by the EDINA Helpdesk for approval. We will email you if we require further information or to confirm we have approved your request.</p>
+          </div>
+          <div *ngIf="hasActivationsInState('DEACTIVATED')">
+            <p>The following collection(s) have been <strong>DEACTIVATED</strong>:</p>
+            <ul *ngFor="let activation of activations">
+              <li *ngIf="activation.state === 'DEACTIVATED'">{{activation.name}}</li>
+            </ul>
+            <p>You must contact the EDINA Helpdesk to resolve these:</p>
+          </div>
+          <div *ngIf="hasActivationsInState('EXPIRED')">
+            <p>The following collection(s) have <strong>EXPIRED</strong>:</p>
+            <ul *ngFor="let activation of activations">
+              <li *ngIf="activation.state === 'EXPIRED'">{{activation.name}}</li>
+            </ul>
+            <p>WHAT DO WE DO HERE, SHOULDN'T AN EXPIRED COLLECTION JUST BE LIKE A NON-ACTIVATED ONE?</p>
+          </div>
+          <div *ngIf="hasOutstandingActivations()">
+            <p>Do you want to access other collections available to you?:</p>
+            <ul *ngFor="let activation of activations">
+              <li *ngIf="activation.licenceAccepted === false && activation.state === 'NOT_ACTIVATED'">{{activation.name}}</li>
+            </ul>
+          </div>
+          <br>
+
+          <button type="button" class="btn btn-default" (click)="view = formView.Form">Back</button>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Success view: form has been submitted successfully -->
+    <div *ngIf="view === formView.SuccessConfirmation">
+      <div class="alert alert-success"> <strong>Success!</strong> </div>
+      <p>
+        You have successfully the activated collection(s) submitted. Thank you for your help.
+      </p>
+      <button type="button" class="btn btn-success" (click)="navigate()">Continue</button>
+    </div>
+
+    <!-- Error view: form has been submitted but there's been an error -->
+    <div *ngIf="view === formView.ErrorConfirmation">
+      <div class="alert alert-danger"> <strong>Error!</strong> There has been a problem activating your collections.</div>
+      <p>
+        Please contact EDINA Helpdesk at <a href="mailto:edina@ed.ac.uk">edina@ed.ac.uk</a> or telephone 0131 650 3302
+        to resolve this problem.
+      </p>
+      <button type="button" class="btn btn-success" (click)="navigate()">Continue</button>
+    </div>
+
+  </div>
+</div>

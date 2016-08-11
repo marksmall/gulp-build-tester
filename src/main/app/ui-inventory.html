@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Stylesheets -->
+    <!-- build:css-vendor -->
+    <link rel="stylesheet" href="styles/vendor.css">
+    <!-- endbuild -->
+    <!-- build:css-bundle -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+
+    <style>
+      .padded {
+        margin: 1em;
+      }
+
+      .collection {
+        min-height: 200px;
+      }
+
+      .show-menu {
+        display: block;
+        position: relative;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container-fluid top">
+      <h1>UI Inventory</h1>
+
+      <h2>Buttons</h2>
+
+      <div class="padded">
+        <ul class="nav nav-pills header-top-btns">
+          <li role="presentation" class="dropdown">
+            <a class="btn btn-main dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+              Drop-down <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">More Buttons...</a></li>
+            </ul>
+          </li>
+          <li><a href="#" class="btn btn-main">Header Top</a></li>
+        </ul>
+      </div>
+
+      <div class="padded">
+        <ul class="dropdown-menu show-menu" role="menu">
+          <li><a href="#">Change User Details</a></li>
+          <li><a href="#">Local Support Information</a></li>
+          <li class="divider"></li>
+          <li><a href="#">DigiAdmin</a></li>
+          <li><a href="#">Site Rep Service</a></li>
+        </ul>
+      </div>
+
+      <div class="clearfix"></div>
+
+      <div class="padded">
+        <a class="btn btn-main resource-btn" href="#">Header Bottom</a>
+      </div>
+
+      <div class="padded">
+        <a href="#" class="btn btn-main">Main Button</a>
+        <a href="#" class="btn btn-default">Default Button</a>
+        <a href="#" class="btn btn-primary">Primary Button</a>
+        <a href="#" class="btn btn-success">Success Button</a>
+      </div>
+
+      <div class="padded">
+        <a href="#" class="btn btn-main" disabled>Main Button</a>
+        <a href="#" class="btn btn-default" disabled>Default Button</a>
+        <a href="#" class="btn btn-primary" disabled>Primary Button</a>
+        <a href="#" class="btn btn-success" disabled>Success Button</a>
+      </div>
+
+      <div class="footer padded">
+        <a href="#"><img class="icon-chat" src="images/misc/chat.svg" alt="Digimap Chat"></a>
+        <a href="#"><img class="icon-twitter" src="images/misc/twitter.svg" alt="Digimap Chat"></a>
+        <a href="#"><img class="icon-facebook" src="images/misc/facebook.svg" alt="Digimap Chat"></a>
+        <a href="#"><img class="icon-blog" src="images/misc/blog.svg" alt="Digimap Chat"></a>
+        <a href="#"><img class="icon-youtube" src="images/misc/youtube.svg" alt="Digimap Chat"></a>
+      </div>
+
+      <div class="collection">
+        <div class="col-xs-5">
+        <a class="btn btn-block btn-primary app-link application-disabled" href="#">
+          <p class="text-uppercase">App Name</p>
+          <p class="app-description">App Description</p>
+        </a>
+        <a class="btn btn-block btn-primary app-link application-enabled" href="#">
+          <p class="text-uppercase">App Name</p>
+          <p class="app-description">App Description</p>
+        </a>
+        </div>
+      </div>
+
+
+      <h2>Links</h2>
+
+      <div class="padded">
+        <a href="#">Default Link on white background</a>
+      </div>
+
+      <div class="footer padded">
+        <a class="btn btn-inverse" href="#">Inverse Link on footer</a>
+      </div>
+
+      <div class="footer copyright padded">
+        <a href="#">Default Link on blue background on footer</a>
+      </div>
+
+
+      <h2>Form Elements</h2>
+
+      <div class="row padded form-group">
+        <label for="text" class="col-xs-2 control-label">Text Field:</label>
+        <div class="col-xs-5">
+          <input id="text" type="text" class="form-control ng-valid" value="Some Text">
+        </div>
+        <div class="col-xs-5">
+          <input disabled id="text" type="text" class="form-control ng-valid" value="Some Text">
+        </div>
+      </div>
+
+      <div class="row padded form-group">
+        <label for="email" class="col-xs-2 control-label">Email Field:</label>
+        <div class="col-xs-5">
+          <input id="email" type="email" class="form-control ng-invalid" value="test@test.com">
+        </div>
+        <div class="col-xs-5">
+          <input disabled id="email" type="email" class="form-control ng-invalid" value="test@test.com">
+        </div>
+      </div>
+
+      <div class="row padded form-group">
+        <label for="select" class="col-xs-2 control-label">Select Box:</label>
+        <div class="col-xs-5">
+          <select id="select" class="form-control">
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+          </select>
+        </div>
+        <div class="col-xs-5">
+          <select disabled id="select" class="form-control">
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row padded form-group">
+        <label for="textarea" class="col-xs-2 control-label">Text Area:</label>
+        <div class="col-xs-5">
+          <textarea id="textarea" class="form-control" rows="10">Some Text</textarea>
+        </div>
+        <div class="col-xs-5">
+          <textarea disabled id="textarea" class="form-control" rows="10">Some Text</textarea>
+        </div>
+      </div>
+
+      <div class="row padded form-group">
+        <label for="textarea2" class="col-xs-2 control-label">Static Text Area:</label>
+        <div class="col-xs-5">
+          <div class="form-control static licence-area" rows="6">Static Text Area</div>
+        </div>
+      </div>
+
+      <div class="padded form-group">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" />Clickable label with text to right of checkbox.
+          </label>
+        </div>
+        <div class="checkbox disabled">
+          <label>
+            <input disabled type="checkbox" />Disabled clickable label with text to right of checkbox.
+          </label>
+        </div>
+      </div>
+
+
+      <h2>Panels</h2>
+
+      <div class="row padded">
+        <div class="col-xs-5">
+        <div class="alert alert-warning">This is an alert message.</div>
+        </div>
+      </div>
+
+      <div class="row padded">
+        <div class="col-xs-5">
+          <div class="alert alert-success">This is a success message.</div>
+        </div>
+      </div>
+
+      <div class="row padded">
+        <div class="col-xs-5">
+          <div class="alert alert-danger">This is a danger message.</div>
+        </div>
+      </div>
+
+      <div class="row padded">
+        <div class="col-xs-5">
+          <div class="header-alert">
+          <div class="alert alert-warning row no-gutters newsflash">
+            <div class="alert-offset">
+              <a class="close" data-dismiss="alert" href="#">×</a>
+              <ul>
+                <li>
+                  <span><strong>Newsflash</strong><br><br>Oh hey something <strong>bad</strong> might be happening.<br><br>Very bad</span>
+                </li>
+                <li>
+                  <span>Second item</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <div class="row padded">
+        <div class="col-xs-5">
+          <div class="header-alert">
+          <div class="alert alert-warning row no-gutters verify-notification">
+            <div class="alert-offset">
+              <a class="close" data-dismiss="alert" href="#">×</a>
+              <h3>Verify Your Email Address</h3>
+              <p>
+                You need to verify your email address before {{user.verificationExpiry}},
+                otherwise you will need to re-register.
+                <a href="#" (click)="resendVerification()">Resend your verification</a> to
+                <strong>{{user.email}}</strong>.
+              </p>
+              <p>
+                If this email is not correct contact
+                <a href="mailto:edina.geosupport@ed.ac.uk">edina.geosupport@ed.ac.uk</a>
+                or telephone: 0131 650 3302.
+              </p>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <div class="col-xs-3">
+      <div class="blog-tabs">
+      <ul class="nav nav-tabs">
+        <li class="active"><a data-target="#news" data-toggle="tab">News</a></li>
+        <li><a data-target="#events" data-toggle="tab">Events</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="blog tab-pane active">
+          <div class="panel panel-info">
+            <a target="blogs" href="http://digimap.blogs.edina.ac.uk/2015/05/29/boundary-line-updated-with-different-county-boundaries/">
+              <div class="panel-heading">
+                <h3 class="panel-title blog-title">Boundary-Line updated with different County Boundaries</h3>
+              </div>
+              <div class="panel-body blog-body">
+                <p class="text-left">29.05.15</p>
+                <p class="text-left blog-excerpt">The latest version of Ordnance Survey's Boundary-Line data contains two new layers, Ceremonial Counties and Historical Counties. Ceremonial Cou</p>
+              </div>
+              <div class="panel-footer">
+                <p class="text-right">
+                  More →
+                </p>
+              </div>
+            </a>
+          </div>
+
+          <div class="panel panel-info">
+            <a target="blogs" href="http://digimap.blogs.edina.ac.uk/2015/05/28/datasets-updated-in-os-data-download/">
+              <div class="panel-heading">
+                <h3 class="panel-title blog-title">Datasets updated in OS Data Download</h3>
+              </div>
+              <div class="panel-body blog-body">
+                <p class="text-left">28.05.15</p>
+                <p class="text-left blog-excerpt">May has been a busy month for data updates in OS Data Download. Not only have we released Points of Interest, Urban Paths and MasterMap Sites La</p>
+              </div>
+              <div class="panel-footer">
+                <p class="text-right">
+                  More →
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div ng-reflect-class-name="blog tab-pane " class="blog tab-pane ">
+          <div class="panel panel-info">
+            <a target="blogs" href="http://digimap.blogs.edina.ac.uk/2015/05/29/boundary-line-updated-with-different-county-boundaries/">
+              <div class="panel-heading">
+                <h3 class="panel-title blog-title">Boundary-Line updated with different County Boundaries</h3>
+              </div>
+              <div class="panel-body blog-body">
+                <p class="text-left">29.05.15</p>
+                <p class="text-left blog-excerpt">The latest version of Ordnance Survey's Boundary-Line data contains two new layers, Ceremonial Counties and Historical Counties. Ceremonial Cou</p>
+              </div>
+              <div class="panel-footer">
+                <p class="text-right">
+                  More →
+                </p>
+              </div>
+            </a>
+          </div>
+
+          <div class="panel panel-info">
+            <a target="blogs" href="http://digimap.blogs.edina.ac.uk/2015/05/28/datasets-updated-in-os-data-download/">
+              <div class="panel-heading">
+                <h3 class="panel-title blog-title">Datasets updated in OS Data Download</h3>
+              </div>
+              <div class="panel-body blog-body">
+                <p class="text-left">28.05.15</p>
+                <p class="text-left blog-excerpt">May has been a busy month for data updates in OS Data Download. Not only have we released Points of Interest, Urban Paths and MasterMap Sites La</p>
+              </div>
+              <div class="panel-footer">
+                <p class="text-right">
+                  More →
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
+  </body>
+</html>
+
+
+
+
+

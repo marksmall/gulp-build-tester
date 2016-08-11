@@ -1,0 +1,22 @@
+<div class="row no-gutters">
+  <div class="col-xs-4 collections">
+    <ul>
+      <li *ngFor="let collection of collections; let i = index"
+          [class.selected]="collection === selectedCollection"
+          [class.collection-disabled]="!canAccessCollection(collection)"
+          (click)="selectCollection(collection)">
+
+        <div class="row no-gutters">
+          <div class="col-lg-4"></div>
+          <div class="col-lg-8 collection-link-container"
+              [class.collection-link-container-top]="i === 0">
+            <dynamic-svg svg="{{collection.icon}}"></dynamic-svg>{{collection.name}}
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="col-xs-8">
+    <collection-detail [collection]="selectedCollection"></collection-detail>
+  </div>
+</div>

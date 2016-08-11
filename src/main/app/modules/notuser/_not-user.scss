@@ -1,0 +1,14 @@
+.not-user {
+  padding: 5em;
+  background-color: $inverse-color;
+
+  .view {
+    padding: 5em;
+    background-color: #fff;
+
+    li {
+      list-style: none;
+    }
+  }
+}
+

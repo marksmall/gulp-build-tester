@@ -1,0 +1,262 @@
+<html>
+<head>
+  <title>Mock User Form</title>
+</head>
+
+<body>
+  <form method="post" action="">
+    <h2>User Data</h2>
+    <table border="1">
+      <tr>
+        <td>
+          <label>state</label>
+        </td>
+        <td>
+          <select name="state">
+            <option {{? it.state === "PENDING"}}selected{{?}}>PENDING</option>
+            <option {{? it.state === "REGISTERED"}}selected{{?}}>REGISTERED</option>
+            <option {{? it.state === "ARCHIVED"}}selected{{?}}>ARCHIVED</option>
+            <option {{? it.state === "BLOCKED"}}selected{{?}}>BLOCKED</option>
+            <option {{? it.state === "UNREGISTERED"}}selected{{?}}>UNREGISTERED</option>
+          </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <label>User type</label>
+        </td>
+        <td>
+          <select name="userType">
+            <option {{? it.userType === "Retired Staff"}}selected{{?}}>Retired Staff</option>
+            <option {{? it.userType === "Undergraduate"}}selected{{?}}>Undergraduate</option>
+            <option {{? it.userType === "Postgraduate"}}selected{{?}}>Postgraduate</option>
+            <option {{? it.userType === "Current Staff"}}selected{{?}}>Current Staff</option>
+          </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <label>Title</label>
+        </td>
+        <td>
+          <select name="title">
+            <option value="" {{? it.title === ""}}selected{{?}}>None</option>
+            <option value="Prof" {{? it.title === "Prof"}}selected{{?}}>Prof</option>
+            <option value="Dr" {{? it.title === "Dr"}}selected{{?}}>Dr</option>
+            <option value="Mr" {{? it.title === "Mr"}}selected{{?}}>Mr</option>
+            <option value="Mrs" {{? it.title === "Mrs"}}selected{{?}}>Mrs</option>
+            <option value="Miss" {{? it.title === "Miss"}}selected{{?}}>Miss</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>First Name</label>
+        </td>
+        <td>
+          <input name="firstName" type="text" value="{{=it.firstName}}"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>Surame</label>
+        </td>
+        <td>
+          <input name="surname" type="text" value="{{=it.surname}}"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>Email</label>
+        </td>
+        <td>
+          <input name="email" type="text" value="{{=it.email}}"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>username</label>
+        </td>
+        <td>
+          <input name="username" type="text" value="{{=it.username}}"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>Hearabout</label>
+        </td>
+        <td>
+          <select name="hearabout">
+            <option {{? it.hearabout === "Student"}}selected{{?}}>Student</option>
+            <option {{? it.hearabout === "Lecturer / Staff Member"}}selected{{?}}>Lecturer / Staff Member</option>
+            <option {{? it.hearabout === "Poster / Flyer / Printed material"}}selected{{?}}>Poster / Flyer / Printed material</option>
+            <option {{? it.hearabout === "Site Representitive"}}selected{{?}}>Site Representitive</option>
+            <option {{? it.hearabout === "University Library / Website"}}selected{{?}}>University Library / Website</option>
+            <option {{? it.hearabout === "Social Media"}}selected{{?}}>Social Media</option>
+            <option {{? it.hearabout === "Search Engine"}}selected{{?}}>Search Engine</option>
+            <option {{? it.hearabout === "Other"}}selected{{?}}>Other</option>
+          </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <label>Can access downloader</label>
+        </td>
+        <td>
+          <input name="canAccessDownloader" type="checkbox" value="{{=it.canAccessDownloader}}"/>
+        </td>
+      </tr>
+
+
+      <tr>
+        <td>
+          <label>Institution ID</label>
+        </td>
+        <td>
+          <input name="institutionid" type="text" value="{{=it.institution.id}}"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>Institution HEI</label>
+        </td>
+        <td>
+          <input name="institutionhei" type="text" value="{{=it.institution.hei}}"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>Institution Name</label>
+        </td>
+        <td>
+          <input name="institution" type="text" value="{{=it.institution.name}}"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>Is this institution IP restricted? (downloadDomainRestriction)</label>
+        </td>
+        <td>
+          <input name="downloadDomainRestriction" type="checkbox" value="true" />
+          <label>Yes</label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>Collections institution is subscribed to</label>
+        </td>
+        <td>
+          <input name="subscribedCollections" type="checkbox" value="digimap" {{? it.institution.subscribedCollections.indexOf("digimap") >= 0 }}checked{{?}}/>
+          <label>OS</label>
+          <input name="subscribedCollections" type="checkbox" value="geology" {{? it.institution.subscribedCollections.indexOf("geology") >= 0 }}checked{{?}}/>
+          <label>Geology</label>
+          <input name="subscribedCollections" type="checkbox" value="marine"  {{? it.institution.subscribedCollections.indexOf("marine") >= 0 }}checked{{?}}/>
+          <label>Marine</label>
+          <input name="subscribedCollections" type="checkbox" value="historic" {{? it.institution.subscribedCollections.indexOf("historic") >= 0 }}checked{{?}}/>
+          <label>Historic</label>
+          <input name="subscribedCollections" type="checkbox" value="environment" {{? it.institution.subscribedCollections.indexOf("environment") >= 0 }}checked{{?}}/>
+          <label>Enviro</label>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <label>Departments of institution</label>
+        </td>
+        <td>
+          <textarea name="departments">
+            {{=JSON.stringify(it.institution.departments)}}
+          </textarea>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <label>Department</label>
+        </td>
+        <td>
+          <input name="department" type="text" value="{{=it.department}}" \>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <label>User roles</label>
+        </td>
+        <td>
+          <input name="admin" type="checkbox" value="true" checked/>
+          <label>Admin</label>
+          <input name="siterep" type="checkbox" value="true" checked/>
+          <label>Site Rep</label>
+          <input name="supportContactable" type="checkbox" value="true" checked/>
+          <label>Support contactable</label>
+          <input name="marketingContactable" type="checkbox" value="true" checked/>
+          <label>Marketing contactable</label>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <label>Collections user activated for (invariant: must be a subset of list above)</label>
+        </td>
+        <td>
+          <input name="activatedCollections" type="checkbox" value="digimap" {{? it.activatedCollections.indexOf("digimap") >= 0 }}checked{{?}}/>
+          <label>OS</label>
+          <input name="activatedCollections" type="checkbox" value="historic" {{? it.activatedCollections.indexOf("historic") >= 0 }}checked{{?}}/>
+          <label>Historic</label>
+          <input name="activatedCollections" type="checkbox" value="geology" {{? it.activatedCollections.indexOf("geology") >= 0 }}checked{{?}}/>
+          <label>Geology</label>
+          <input name="activatedCollections" type="checkbox" value="marine" {{? it.activatedCollections.indexOf("marine") >= 0 }}checked{{?}}/>
+          <label>Marine</label>
+          <input name="activatedCollections" type="checkbox" value="environment" {{? it.activatedCollections.indexOf("environment") >= 0 }}checked{{?}}/>
+          <label>Enviro</label>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <label>Service Restrictions(check to disable an application)</label>
+        </td>
+        <td>
+          <input name="serviceRestrictions" type="checkbox" value="OSMAPPER" {{? it.serviceRestrictions.indexOf("OSMAPPER") !== -1}}checked{{?}}>
+          <label>Roam</label>
+          <input name="serviceRestrictions" type="checkbox" value="DATADOWNLOAD" {{? it.serviceRestrictions.indexOf("DATADOWNLOAD") !== -1}}checked{{?}}>
+          <label>Data Download</label>
+          <input name="serviceRestrictions" type="checkbox" value="GAZETTEERQUERY" {{? it.serviceRestrictions.indexOf("GAZETTEERQUERY") !== -1}}checked{{?}}>
+          <label>Gaz Query</label>
+          <input name="serviceRestrictions" type="checkbox" value="GAZETTEERPLUS" {{? it.serviceRestrictions.indexOf("GAZETTEERPLUS") !== -1}}checked{{?}}>
+          <label>Gaz Plus</label>
+          <input name="serviceRestrictions" type="checkbox" value="POSTCODEQUERY" {{? it.serviceRestrictions.indexOf("POSTCODEQUERY") !== -1}}checked{{?}}>
+          <label>Postcode Query</label>
+          <input name="serviceRestrictions" type="checkbox" value="HISTORICMAPPER" {{? it.serviceRestrictions.indexOf("HISTORICMAPPER") !== -1}}checked{{?}}>
+          <label>Ancient Roam</label>
+          <input name="serviceRestrictions" type="checkbox" value="HISTORICDOWNLOAD" {{? it.serviceRestrictions.indexOf("HISTORICDOWNLOAD") !== -1}}checked{{?}}>
+          <label>Historic Download</label>
+          <input name="serviceRestrictions" type="checkbox" value="GEOLOGYMAPPER" {{? it.serviceRestrictions.indexOf("GEOLOGYMAPPER") !== -1}}checked{{?}}>
+          <label>Geolory Roam</label>
+          <input name="serviceRestrictions" type="checkbox" value="GEOLOGYDOWNLOAD" {{? it.serviceRestrictions.indexOf("GEOLOGYDOWNLOAD") !== -1}}checked{{?}}>
+          <label>Geology Download</label>
+          <input name="serviceRestrictions" type="checkbox" value="MARINEROAM" {{? it.serviceRestrictions.indexOf("MARINEROAM") !== -1}}checked{{?}}>
+          <label>Marine Roam</label>
+          <input name="serviceRestrictions" type="checkbox" value="MARINEDOWNLOAD" {{? it.serviceRestrictions.indexOf("MARINEDOWNLOAD") !== -1}}checked{{?}}>
+          <label>Marine Download</label>
+          <input name="serviceRestrictions" type="checkbox" value="MARINELEXICON" {{? it.serviceRestrictions.indexOf("MARINELEXICON") !== -1}}checked{{?}}>
+          <label>Marine Lexicon</label>
+          <input name="serviceRestrictions" type="checkbox" value="CHARTROAM" {{? it.serviceRestrictions.indexOf("CHARTROAM") !== -1}}checked{{?}}>
+          <label>Chart Roam</label>
+          <input name="serviceRestrictions" type="checkbox" value="ENVIROROAM" {{? it.serviceRestrictions.indexOf("ENVIROROAM") !== -1}}checked{{?}}>
+          <label>Environment Roam</label>
+          <input name="serviceRestrictions" type="checkbox" value="ENVIRODOWNLOAD" {{? it.serviceRestrictions.indexOf("ENVIRODOWNLOAD") !== -1}}checked{{?}}>
+          <label>Environment Download</label>
+        </td>
+      </tr>
+
+    </table>
+    <input type="submit" name="submit" value="Submit" />
+  </form>
+</body>
+
+</html>

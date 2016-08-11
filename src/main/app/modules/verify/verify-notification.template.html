@@ -1,0 +1,21 @@
+<simple-notifications></simple-notifications>
+
+<div *ngIf="isPending()" class="header-alert">
+  <div class="alert alert-warning row no-gutters verify-notification">
+    <div class="alert-offset">
+      <a href="#" class="close" data-dismiss="alert">&times;</a>
+      <h3>Verify Your Email Address</h3>
+      <p>
+        You need to verify your email address before {{user.verificationExpiry}},
+        otherwise you will need to re-register.
+        <a href="#" (click)="resendVerification()">Resend your verification</a> to
+        <strong>{{user.email}}</strong>.
+      </p>
+      <p>
+        If this email is not correct contact
+        <a href="mailto:edina.geosupport@ed.ac.uk">edina.geosupport@ed.ac.uk</a>
+        or telephone: 0131 650 3302.
+      </p>
+    </div>
+  </div>
+</div>

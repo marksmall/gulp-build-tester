@@ -1,0 +1,68 @@
+.footer {
+  position: absolute;
+  background-color: $inverse-color;
+  height: $footer-height;
+  bottom: 0;
+  width: 100%;
+
+  a {
+    fill: $primary-color;
+
+    &:hover {
+      color: lighten($primary-color, 10%);
+      fill: lighten($primary-color, 10%);
+      text-decoration: none;
+    }
+
+    &.btn {
+
+      &.btn-inverse {
+        padding-right: 1em;
+      }
+    }
+  }
+}
+
+.copyright {
+  background-color: $primary-color;
+
+  a {
+    color: $inverse-color;
+
+    &:hover {
+      color: $brand-primary;
+    }
+  }
+}
+
+// SVG Icons.
+// Sadly width: auto; doesn't work in IE11 :(
+.icon-chat {
+  width: 5em;
+  height: 3em;
+}
+
+.icon-twitter {
+  width: 4em;
+  height: 3em;
+}
+
+.icon-facebook {
+  width: 3em;
+  height: 3em;
+}
+
+.icon-blog {
+  width: 3em;
+  height: 3em;
+}
+
+.icon-youtube {
+  width: 3em;
+  height: 3em;
+}
+
+.icon-edina {
+  width: 7em;
+  height: 3em;
+}

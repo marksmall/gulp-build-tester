@@ -1,0 +1,105 @@
+$blog-line-height: 1.5em;
+
+.blog {
+  padding: 1em 1em .5em;
+
+  .panel {
+    border: 1px solid #e4e9ed;
+    padding: 1em 1em 0;
+    margin-bottom: 10px;
+
+    a {
+      color: #000;
+
+      &:hover {
+        text-decoration: none;
+      }
+
+      &:focus {
+        text-decoration: none;
+      }
+    }
+
+    &:hover {
+      background-color: #e4e9ec;
+
+      // Need a blog-excerpt override here to make the background hover work
+      // properly. It needs to be in the parent otherwise the colour will-change
+      // only works when we hover the content, not the full blog entry.
+      .blog-excerpt {
+        &::after {
+          background: linear-gradient(to right, rgba(255, 255, 255, 0), #e4e9ec 50%);
+        }
+      }
+    }
+
+    .panel-heading, .panel-footer {
+      border-color: transparent;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+}
+
+.blog-title {
+  @include text-overflow;
+  margin-bottom: .5em;
+  font-size: 1.4em;
+  color: #000;
+}
+
+.blog-body {
+  padding: 0;
+}
+
+.blog-excerpt {
+  overflow: hidden;
+  height: $blog-line-height * 4; // number of lines in the excerpt
+  line-height: $blog-line-height;
+  position: relative;
+
+  &::after {
+    content: '';
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 70%;
+    height: $blog-line-height;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+  }
+}
+
+.blog-tabs {
+  min-height: $home-component-height;
+  background-color: $secondary-color;
+
+  ul {
+    background-color: $inverse-color;
+    font-size: $default-font-size;
+  }
+
+  .nav-tabs {
+
+    & > li {
+      & > a {
+        color: #747577;
+        text-decoration: none;
+
+        &:hover {
+          background-color: $inverse-color;
+          cursor: pointer;
+        }
+
+        &:focus {
+          color: #000;
+          font-size: 1em;
+        }
+      }
+    }
+  }
+}
+
+.tab-content {
+  background-color: $secondary-color;
+}

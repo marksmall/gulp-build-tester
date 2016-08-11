@@ -1,0 +1,203 @@
+<div class="row">
+  <div class="col-lg-offset-1 col-lg-10 dm-form-view">
+
+    <div *ngIf="view === formView.Wait">
+      Please wait ...
+    </div>
+
+    <!-- Error view, the message retrieved from the server -->
+    <div *ngIf="view === formView.Error">
+      <div class="alert alert-danger">
+        <p><strong>Error!</strong> The following problem has occured: </p>
+        <ul>
+          <li>{{errorMessage}}</li>
+        </ul>
+      </div>
+      <p>
+          If the problem persists, please contact the EDINA Helpdesk at <a href="mailto:edina@ed.ac.uk">edina@ed.ac.uk</a>
+          or telephone 0131 650 3302 to resolve this problem.
+      </p>
+      <button type="button" class="btn btn-success" (click)="navigate()">Continue</button>
+    </div>
+
+    <form class="form-horizontal" [formGroup]="registerUserForm" (ngSubmit)="registerUser()" >
+
+      <!-- Main form view -->
+      <div *ngIf="view === formView.Form">
+        <div class="form-group">
+          <label for="title" class="col-xs-3 control-label">Title</label>
+          <div class="col-xs-5">
+            <select id="title" class="form-control" formControlName="title" [(ngModel)]="user.title">
+              <option value="">Please select</option>
+              <option *ngFor="let title of titles" value="{{title}}">{{title}}</option>
+            </select>
+            <control-messages [control]="title"></control-messages>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="firstName" class="col-xs-3 control-label">First name(s)</label>
+          <div class="col-xs-5">
+            <input id="firstName" type="text" class="form-control" formControlName="firstName" [(ngModel)]="user.firstName">
+            <control-messages [control]="firstName"></control-messages>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="surname" class="col-xs-3 control-label">Last name</label>
+          <div class="col-xs-5">
+            <input type="text" class="form-control" formControlName="surname" [(ngModel)]="user.surname">
+            <control-messages [control]="surname"></control-messages>
+          </div>
+        </div>
+        <div class="form-group" formGroupName="matchingEmail">
+          <label for="email" class="col-xs-3 control-label">Email address</label>
+          <div class="col-xs-5">
+            <input id="email" type="email" class="form-control" formControlName="email" [(ngModel)]="user.email">
+            <control-messages [control]="email"></control-messages>
+          </div>
+        </div>
+        <div class="form-group" formGroupName="matchingEmail">
+          <label for="repeatEmail" class="col-xs-3 control-label">Repeat Email address</label>
+          <div class="col-xs-5">
+            <input id="repeatEmail" type="email" class="form-control" formControlName="repeatEmail" disable-paste>
+            <control-messages [control]="repeatEmail"></control-messages>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="institution" class="col-xs-3 control-label">Institution</label>
+          <div id="institution" class="col-xs-5">
+            <p class="form-control static">{{ user.institutionName }}</p>
+          </div>
+        </div>
+        <div class="form-group" formGroupName="departmentGroup">
+          <label for="department" class="col-xs-3 control-label">Department</label>
+          <div id="department" class="col-xs-5">
+            <select class="form-control" formControlName="department" [(ngModel)]="existingDepartmentModel">
+              <option value="">Please select...</option>
+              <option *ngFor="let dept of user.departments" value="{{dept}}">{{dept}}</option>
+              <option value="request_new_dept">-- Request new department --</option>
+            </select>
+            <control-messages [control]="department"></control-messages>
+          </div>
+        </div>
+        <div class="form-group" formGroupName="departmentGroup">
+          <div *ngIf="existingDepartmentModel === 'request_new_dept'">
+            <label for="newDepartment" class="col-xs-3 control-label">Request a new Department</label>
+            <div class="col-xs-5">
+              <input id="newDepartment" type="text" class="form-control" formControlName="newDepartment" [(ngModel)]="newDepartmentModel">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="userType" class="col-xs-3 control-label">User status</label>
+          <div class="col-xs-5">
+            <select id="userType" class="form-control" formControlName="userType" [(ngModel)]="user.userType">
+              <option value="">Please select...</option>
+              <option *ngFor="let userType of user.userTypes" value="{{userType}}">{{userType}}</option>
+            </select>
+            <control-messages [control]="userType"></control-messages>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="hearAbout" class="col-xs-3 control-label">Where did you hear about Digimap?</label>
+          <div class="col-xs-5">
+            <select id="hearAbout" class="form-control" formControlName="hearAbout" [(ngModel)]="user.hearAbout">
+              <option value="">Please select...</option>
+              <option *ngFor="let hear of user.hearAbouts" value="{{hear}}">{{hear}}</option>
+            </select>
+            <control-messages [control]="hearAbout"></control-messages>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-xs-10">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"  formControlName="marketingContactable" [(ngModel)]="user.marketingContactable" />
+                Yes, I’d like to receive information about Digimap and other EDINA geospatial services including
+                newsletters and webinars. You can unsubscribe at any time. (Please tick box)
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-xs-10">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"  formControlName="supportContactable" [(ngModel)]="user.supportContactable" />
+                Yes, I’d like to be added to the Digimap Support email list to receive important information about
+                the Digimap service and invitations to training and events. This list is aimed at any staff that
+                support the use of Digimap. You can unsubscribe at any time. (Please tick box)
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-offset-1">
+          <button type="button" class="btn btn-default" [disabled]="!hasChanged()" (click)="resetUser()">Reset</button>
+          <button type="button" class="btn btn-success" [disabled]="!canSubmit()" (click)="view = formView.Summary">Next</button>
+        </div>
+      </div>
+
+      <!-- Summary view -->
+      <div *ngIf="view === formView.Summary">
+        <h2>You have entered the following details. Please check these before pressing submit</h2>
+        <div class="row">
+          <div class="col-xs-3">Title:</div>
+          <div class="col-xs-9  pull-left">{{ user.title }}</div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">First Name(s):</div>
+          <div class="col-xs-9  pull-left">{{ user.firstName }}</div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">Last name:</div>
+          <div class="col-xs-9 pull-left">{{ user.surname }}</div>
+        </div>
+        <div class="row">
+        <div class="col-xs-3">Email</div>
+        <div class="col-xs-9 pull-left">{{ user.email }}</div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">Institution:</div>
+          <div class="col-xs-9 pull-left">{{ user.institutionName }}</div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">Department:</div>
+          <div class="col-xs-9 pull-left">{{ user.department }}</div>
+        </div>
+        <div class="row">
+        <div class="col-xs-3">User Type:</div>
+        <div class="col-xs-9 pull-left">{{ user.userType }}</div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">Where did you hear about Digimap?:</div>
+          <div class="col-xs-9 pull-left">{{ user.hearAbout }}</div>
+        </div>
+        <br>
+        <button type="button" class="btn btn-default" (click)="view = formView.Form">Back</button>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </div>
+    </form>
+
+    <!-- Success view: form has been submitted successfully -->
+    <div *ngIf="view === formView.SuccessConfirmation">
+      <div class="alert alert-success"> <strong>Success!</strong> </div>
+      <p>
+        Your Registration details have been submitted, an email is on it's way so the
+        Registration Process can be completed.
+      </p>
+      <button type="button" class="btn btn-success" (click)="navigate()">Continue</button>
+    </div>
+
+    <!-- Error view: form has been submitted but there's been an error -->
+    <div *ngIf="view === formView.ErrorConfirmation">
+      <div class="alert alert-danger"> <strong>Error!</strong> There has been a problem submitting your details.</div>
+      <p>
+        Please contact EDINA Helpdesk at <a href="mailto:edina@ed.ac.uk">edina@ed.ac.uk</a> or telephone 0131 650 3302
+        to resolve this problem.
+      </p>
+      <button type="button" class="btn btn-success" (click)="navigate()">Continue</button>
+    </div>
+
+  </div>
+</div>
