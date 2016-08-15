@@ -6,7 +6,7 @@
 import gulp from 'gulp'
 import path from 'path'
 // import requireDir from 'require-dir'
-import loader from 'banger'
+import {loader} from 'banger'
 
 let options = {}
 
@@ -69,6 +69,6 @@ options.tasks = path.join(__dirname, './gulp/tasks')
 console.log(`USER OPTIONS IN PROJECT: ${JSON.stringify(options)}`)
 
 // Register all node-build-web-app build tasks.
-// exports.options = options
+exports.options = options
 loader.registerTasks(gulp, options)
 
