@@ -1,27 +1,27 @@
-import {Component, Host, Input} from "@angular/core";
-import {AbstractControl, FormGroup, FormControl} from "@angular/forms";
+import {Component, Host, Input} from '@angular/core'
+import {AbstractControl, FormGroup, FormControl} from '@angular/forms'
 
-import {ValidationService} from "./validation.service";
+import {ValidationService} from './validation.service'
 
 /**
  * Taken from: https://coryrylan.com/blog/angular-2-form-builder-and-validation-management
  */
 
 @Component({
-  selector: "control-messages",
-  templateUrl: "modules/controlmessages/controlmessages.template.html"
+  selector: 'control-messages',
+  templateUrl: 'modules/controlmessages/controlmessages.template.html'
 })
 export class ControlMessages {
 
-  @Input() control: FormControl;
+  @Input() control: FormControl
 
   get errorMessage(): string {
     for (let propertyName in this.control.errors) {
       if (this.control.errors.hasOwnProperty(propertyName) && this.control.touched) {
-        return ValidationService.getValidatorErrorMessage(propertyName);
+        return ValidationService.getValidatorErrorMessage(propertyName)
       }
     }
 
-    return null;
+    return null
   }
 }

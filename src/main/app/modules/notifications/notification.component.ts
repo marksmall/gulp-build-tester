@@ -1,129 +1,129 @@
-import {Component, OnInit, OnDestroy, ViewEncapsulation} from "@angular/core";
-import {Notification} from "./notification";
-import {NotificationsService} from "./notifications.service";
-import {MaxPipe} from "./max.pipe";
-import {Icons} from "./icons";
+import {Component, OnInit, OnDestroy, ViewEncapsulation} from '@angular/core'
+import {Notification} from './notification'
+import {NotificationsService} from './notifications.service'
+import {MaxPipe} from './max.pipe'
+import {Icons} from './icons'
 
 @Component({
-    selector: "simple-notification",
+    selector: 'simple-notification',
 
     inputs: [
-        "item",
-        "timeOut",
-        "position",
-        "clickToClose",
-        "maxLength",
-        "showProgressBar",
-        "pauseOnHover",
-        "theClass",
-        "rtl"
+        'item',
+        'timeOut',
+        'position',
+        'clickToClose',
+        'maxLength',
+        'showProgressBar',
+        'pauseOnHover',
+        'theClass',
+        'rtl'
     ],
     pipes: [MaxPipe],
     encapsulation: ViewEncapsulation.None,
     template: `
-        <div class="simple-notification"
-            (click)="removeSelf()"
-            [class]="theClass"
+        <div class='simple-notification'
+            (click)='removeSelf()'
+            [class]='theClass'
 
-            [ngClass]="{
+            [ngClass]='{
                 'alert': item.type === 'alert',
                 'error': item.type === 'error',
                 'success': item.type === 'success',
                 'info': item.type === 'info',
                 'bare': item.type === 'bare',
                 'rtl-mode': rtl
-            }"
+            }'
 
-            (mouseenter)="onEnter()"
-            (mouseleave)="onLeave()">
+            (mouseenter)='onEnter()'
+            (mouseleave)='onLeave()'>
 
-            <div *ngIf="!item.html">
-                <div class="title">{{item.title}}</div>
-                <div class="content">{{item.content | max:maxLength}}</div>
-                <div *ngIf="item.type !== 'bare'" [innerHTML]="icons[item.type]"></div>
+            <div *ngIf='!item.html'>
+                <div class='title'>{{item.title}}</div>
+                <div class='content'>{{item.content | max:maxLength}}</div>
+                <div *ngIf='item.type !== 'bare'' [innerHTML]='icons[item.type]'></div>
             </div>
-            <div *ngIf="item.html" [innerHTML]="item.html"></div>
+            <div *ngIf='item.html' [innerHTML]='item.html'></div>
 
-            <div class="progress" *ngIf="showProgressBar">
-                <span [ngStyle]="{'width': progressWidth + '%'}"></span>
+            <div class='progress' *ngIf='showProgressBar'>
+                <span [ngStyle]='{'width': progressWidth + '%'}'></span>
             </div>
 
         </div>
     `,
     styles: [`
         .simple-notification {
-            width: 100%;
-            padding: 10px 20px;
-            box-sizing: border-box;
-            position: relative;
-            float: left;
-            margin-bottom: 10px;
-            color: #fff;
-            cursor: pointer;
-            transition: all 0.5s;
+            width: 100%
+            padding: 10px 20px
+            box-sizing: border-box
+            position: relative
+            float: left
+            margin-bottom: 10px
+            color: #fff
+            cursor: pointer
+            transition: all 0.5s
         }
 
         .simple-notification .title {
-            margin: 0;
-            padding: 0;
-            line-height: 30px;
-            font-size: 20px;
+            margin: 0
+            padding: 0
+            line-height: 30px
+            font-size: 20px
         }
 
         .simple-notification .content {
-            margin: 0;
-            font-size: 16px;
-            padding: 0 50px 0 0;
-            line-height: 20px;
+            margin: 0
+            font-size: 16px
+            padding: 0 50px 0 0
+            line-height: 20px
         }
 
         .simple-notification svg {
-            position: absolute;
-            box-sizing: border-box;
-            top: 0;
-            right: 0;
-            width: auto;
-            height: 70px;
-            padding: 10px;
-            fill: #fff;
+            position: absolute
+            box-sizing: border-box
+            top: 0
+            right: 0
+            width: auto
+            height: 70px
+            padding: 10px
+            fill: #fff
         }
 
         .simple-notification.rtl-mode {
-            direction: rtl;
+            direction: rtl
         }
 
         .simple-notification.rtl-mode .content {
-            padding: 0 0 0 50px;
+            padding: 0 0 0 50px
         }
 
         .simple-notification.rtl-mode svg {
-            left: 0;
-            right: auto;
+            left: 0
+            right: auto
         }
 
-        .simple-notification.error { background: #F44336; }
-        .simple-notification.success { background: #8BC34A; }
-        .simple-notification.alert { background: #ffdb5b; }
-        .simple-notification.info { background: #03A9F4; }
+        .simple-notification.error { background: #F44336 }
+        .simple-notification.success { background: #8BC34A }
+        .simple-notification.alert { background: #ffdb5b }
+        .simple-notification.info { background: #03A9F4 }
 
         .simple-notification .progress {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
+            position: absolute
+            top: 0
+            left: 0
+            width: 100%
+            height: 5px
         }
 
         .simple-notification .progress span {
-            float: left;
-            height: 100%;
+            float: left
+            height: 100%
         }
 
-        .simple-notification.success .progress span { background: #689F38; }
-        .simple-notification.error .progress span { background: #D32F2F; }
-        .simple-notification.alert .progress span { background: #edc242; }
-        .simple-notification.info .progress span { background: #0288D1; }
-        .simple-notification.bare .progress span { background: #ccc; }
+        .simple-notification.success .progress span { background: #689F38 }
+        .simple-notification.error .progress span { background: #D32F2F }
+        .simple-notification.alert .progress span { background: #edc242 }
+        .simple-notification.info .progress span { background: #0288D1 }
+        .simple-notification.bare .progress span { background: #ccc }
     `]
 })
 
@@ -132,84 +132,84 @@ export class NotificationComponent implements OnInit, OnDestroy {
         private _service: NotificationsService
     ) {}
 
-    public icons: any = Icons;
+    public icons: any = Icons
 
     ////// Inputs
-    public item: Notification;
-    public maxLength: number;
-    public showProgressBar: boolean;
-    public theClass: string;
-    public theHtml: any;
-    public rtl: boolean;
+    public item: Notification
+    public maxLength: number
+    public showProgressBar: boolean
+    public theClass: string
+    public theHtml: any
+    public rtl: boolean
 
-    public overrides: any;
+    public overrides: any
 
     ////// Locals
 
     // Progress bar variables
-    public progressWidth: number = 0;
-    private stopTime: boolean = false;
-    private timer: any;
-    private steps: number;
-    private speed: number;
-    private count: number = 0;
-    private start: any;
-    private diff: any;
+    public progressWidth: number = 0
+    private stopTime: boolean = false
+    private timer: any
+    private steps: number
+    private speed: number
+    private count: number = 0
+    private start: any
+    private diff: any
 
-    private timeOut: number;
-    private position: number;
-    private clickToClose: boolean;
-    private pauseOnHover: boolean;
+    private timeOut: number
+    private position: number
+    private clickToClose: boolean
+    private pauseOnHover: boolean
 
     ngOnInit() {
         if (this.item.override) {
-          this.attachOverrides();
+          this.attachOverrides()
         }
         if (this.timeOut !== 0) {
-          this.startTimeOut();
+          this.startTimeOut()
         }
     }
 
     startTimeOut() {
-        this.steps = this.timeOut / 10;
-        this.speed = this.timeOut / this.steps;
-        this.start = new Date().getTime();
-        this.timer = setTimeout(this.instance, this.speed);
+        this.steps = this.timeOut / 10
+        this.speed = this.timeOut / this.steps
+        this.start = new Date().getTime()
+        this.timer = setTimeout(this.instance, this.speed)
     }
 
     onEnter() {
         if (this.pauseOnHover) {
-          this.stopTime = true;
+          this.stopTime = true
         }
     }
 
     onLeave() {
         if (this.pauseOnHover) {
-            this.stopTime = false;
-            setTimeout(this.instance, (this.speed - this.diff));
+            this.stopTime = false
+            setTimeout(this.instance, (this.speed - this.diff))
         }
     }
 
-    setPosition() { return this.position !== 0 ? this.position * 90 : 0; }
-    removeSelf() { if (this.clickToClose) {this._service.set(this.item, false);} }
+    setPosition() { return this.position !== 0 ? this.position * 90 : 0 }
+    removeSelf() { if (this.clickToClose) {this._service.set(this.item, false)} }
 
 
     // Attach all the overrides
     attachOverrides() {
-        Object.keys(this.item.override).forEach(a => this[a] = this.item.override[a]);
+        Object.keys(this.item.override).forEach(a => this[a] = this.item.override[a])
     }
 
-    ngOnDestroy() { clearTimeout(this.timer); }
+    ngOnDestroy() { clearTimeout(this.timer) }
 
     private instance = () => {
-        this.diff = (new Date().getTime() - this.start) - (this.count * this.speed);
+        this.diff = (new Date().getTime() - this.start) - (this.count * this.speed)
         if (this.count++ === this.steps) {
-          this._service.set(this.item, false);
+          this._service.set(this.item, false)
         } else if (!this.stopTime) {
             if (this.showProgressBar) {
-              this.progressWidth += 100 / this.steps;
+              this.progressWidth += 100 / this.steps
             }
-            this.timer = setTimeout(this.instance, (this.speed - this.diff));
+            this.timer = setTimeout(this.instance, (this.speed - this.diff))
         }
-    };
+    }
 }

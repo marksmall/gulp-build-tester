@@ -1,19 +1,19 @@
-import {Component, OnInit} from "@angular/core";
-import {RouteParams} from "@angular/router-deprecated";
+import {Component, OnInit} from '@angular/core'
+import {RouteParams} from '@angular/router-deprecated'
 
-import {SimpleNotificationsComponent} from "../notifications/simpleNotifications.component";
-import {NotificationsService} from "../notifications/notifications.service";
-import {ConfigService} from "../config/config.service";
+import {SimpleNotificationsComponent} from '../notifications/simpleNotifications.component'
+import {NotificationsService} from '../notifications/notifications.service'
+import {ConfigService} from '../config/config.service'
 
 const ERROR_QUERY_PARAMS = [
-  "notSubscribed",
-  "notActivated",
-  "domainRestricted",
-];
+  'notSubscribed',
+  'notActivated',
+  'domainRestricted',
+]
 
 @Component({
-  selector: "authentication-notification",
-  templateUrl: "modules/authentication/authentication-notification.template.html",
+  selector: 'authentication-notification',
+  templateUrl: 'modules/authentication/authentication-notification.template.html',
   providers: [NotificationsService],
   directives: [SimpleNotificationsComponent]
 })
@@ -24,23 +24,23 @@ export class AuthenticationNotificationComponent implements OnInit {
 
   private showErrors(config: Map<string,any>) {
     ERROR_QUERY_PARAMS.forEach(param => {
-      let paramValue = this.routeParams.get(param);
+      let paramValue = this.routeParams.get(param)
       if (paramValue) {
-        let message = config.get(`authorisation.${param}`) || "Message error";
+        let message = config.get(`authorisation.${param}`) || 'Message error'
         let content = `
-          <div class="title">Authorisation Error</div>
-          <div class="content">
+          <div class='title'>Authorisation Error</div>
+          <div class='content'>
             ${message}
           </div>
-        `;
-        this.notificationsService.html(content, "error");
+        `
+        this.notificationsService.html(content, 'error')
       }
-    });
+    })
   }
 
   ngOnInit() {
     this.configService.getConfig().subscribe(config => {
-      this.showErrors(config);
-    });
+      this.showErrors(config)
+    })
   }
 }

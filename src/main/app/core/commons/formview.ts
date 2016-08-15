@@ -6,4 +6,4 @@ export enum FormView {
   Summary,                // For summary page
   SuccessConfirmation,    // Report form submit success
   ErrorConfirmation       // Report form failure
-};
+}

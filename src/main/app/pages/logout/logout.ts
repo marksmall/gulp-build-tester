@@ -1,15 +1,15 @@
-import {Component, OnInit} from "@angular/core";
-import {RouterLink} from "@angular/router-deprecated";
+import {Component, OnInit} from '@angular/core'
+import {RouterLink} from '@angular/router-deprecated'
 
-import {NotificationsService} from "../../modules/notifications/notifications.service";
-import {SimpleNotificationsComponent} from "../../modules/notifications/simpleNotifications.component";
+import {NotificationsService} from '../../modules/notifications/notifications.service'
+import {SimpleNotificationsComponent} from '../../modules/notifications/simpleNotifications.component'
 
-import {LogoutService} from "./logout.service";
-import {Header} from "../../modules/header/header";
-import {Footer} from "../../modules/footer/footer";
+import {LogoutService} from './logout.service'
+import {Header} from '../../modules/header/header'
+import {Footer} from '../../modules/footer/footer'
 
 @Component({
-  templateUrl: "pages/logout/logout.template.html",
+  templateUrl: 'pages/logout/logout.template.html',
   providers: [LogoutService],
   directives: [RouterLink, Header, Footer]
 })
@@ -17,13 +17,13 @@ export class Logout implements OnInit {
 
   // Indicates that the component is waiting for a response from the service to indicate
   // whether logout was successful or not
-  private waitForLogout: boolean;
+  private waitForLogout: boolean
 
   // Indicates that logout was successful
-  private success: boolean;
+  private success: boolean
 
   constructor(private logoutService: LogoutService) {
-    this.waitForLogout = true;
+    this.waitForLogout = true
   }
 
   /**
@@ -32,16 +32,16 @@ export class Logout implements OnInit {
   ngOnInit(): void {
     this.logoutService.logout().subscribe(
       (success: {success: string}) => {
-        console.log("Successfully logged out, response: " + JSON.stringify(success));
-        this.waitForLogout = false;
-        this.success = true;
+        console.log('Successfully logged out, response: ' + JSON.stringify(success))
+        this.waitForLogout = false
+        this.success = true
       },
       (error: any) => {
-        console.error("Error Logging out: " + JSON.stringify(error));
-        this.waitForLogout = false;
-        this.success = false;
+        console.error('Error Logging out: ' + JSON.stringify(error))
+        this.waitForLogout = false
+        this.success = false
       }
-    );
+    )
   }
 }
 

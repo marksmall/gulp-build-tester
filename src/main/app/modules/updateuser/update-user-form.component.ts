@@ -1,81 +1,81 @@
-import {Component, OnInit} from "@angular/core";
-import {REACTIVE_FORM_DIRECTIVES, FormBuilder, FormGroup, FormControlName, Validators} from "@angular/forms";
-import {ROUTER_DIRECTIVES, Router} from "@angular/router-deprecated";
+import {Component, OnInit} from '@angular/core'
+import {REACTIVE_FORM_DIRECTIVES, FormBuilder, FormGroup, FormControlName, Validators} from '@angular/forms'
+import {ROUTER_DIRECTIVES, Router} from '@angular/router-deprecated'
 
-import {cloneDeep, isEqual} from "lodash";
+import {cloneDeep, isEqual} from 'lodash'
 
-import {ControlMessages} from "../controlmessages/controlmessages";
-import {ValidationService} from "../controlmessages/validation.service";
+import {ControlMessages} from '../controlmessages/controlmessages'
+import {ValidationService} from '../controlmessages/validation.service'
 
-import {FormView} from "../../core/commons/formview";
-import {ErrorResponse} from "../../core/commons/errorresponse";
-import {UpdateUserService} from "./update-user.service";
-import {UpdateUserDto} from "./update-user";
+import {FormView} from '../../core/commons/formview'
+import {ErrorResponse} from '../../core/commons/errorresponse'
+import {UpdateUserService} from './update-user.service'
+import {UpdateUserDto} from './update-user'
 
 @Component({
-  selector: "update-user-form",
-  templateUrl: "modules/updateuser/update-user-form.template.html",
+  selector: 'update-user-form',
+  templateUrl: 'modules/updateuser/update-user-form.template.html',
   directives: [REACTIVE_FORM_DIRECTIVES, ROUTER_DIRECTIVES, ControlMessages],
   providers: [UpdateUserService]
 })
 export class UpdateUserFormComponent implements OnInit {
 
   // Ideally would be const static but isn't supported by typescript
-  private titles: string[] = ["Mr", "Miss", "Mrs", "Ms", "Dr", "Prof"];
+  private titles: string[] = ['Mr', 'Miss', 'Mrs', 'Ms', 'Dr', 'Prof']
 
-  private user: UpdateUserDto;
-  private existingDepartment: string;
-  private newDepartment: string;
+  private user: UpdateUserDto
+  private existingDepartment: string
+  private newDepartment: string
 
   // The original state of the update user DTO
-  private original: UpdateUserDto;
+  private original: UpdateUserDto
 
-  private formView = FormView;
+  private formView = FormView
 
   // Which of the views is currently being displayed
-  private view: FormView;
+  private view: FormView
 
   // If an error has occured, the message from the server
-  private errorMessage: string;
+  private errorMessage: string
 
-  private updateUserForm: FormGroup;
+  private updateUserForm: FormGroup
 
   constructor(fb: FormBuilder,
               private router: Router,
               private userService: UpdateUserService) {
-    this.userService = userService;
-    this.view = FormView.Wait;
+    this.userService = userService
+    this.view = FormView.Wait
     this.updateUserForm = fb.group({
-      "title": ["", Validators.compose([Validators.required])],
-      "firstName": ["", Validators.compose([Validators.required])],
-      "surname": ["", Validators.compose([Validators.required])],
-      "existingDepartment": "",
-      "newDepartment": "",
-      "marketingContactable": "",
-      "supportContactable": "",
+      'title': ['', Validators.compose([Validators.required])],
+      'firstName': ['', Validators.compose([Validators.required])],
+      'surname': ['', Validators.compose([Validators.required])],
+      'existingDepartment': '',
+      'newDepartment': '',
+      'marketingContactable': '',
+      'supportContactable': '',
     }, {
       validator: this.departmentValidator
-    });
+    })
 
     // Listens to changes in the form values, reflecting the existingDepartment
     // and newDepartment values back onto the user model.
     this.updateUserForm
         .valueChanges
         .subscribe((values) => {
-          if (values.existingDepartment === "") {
-            this.user.department = values.newDepartment;
+          if (values.existingDepartment === '') {
+            this.user.department = values.newDepartment
           } else {
-            this.user.department = values.existingDepartment;
+            this.user.department = values.existingDepartment
           }
-          console.log("User details: ", values);
-        });
+          console.log('User details: ', values)
+        })
   }
 
   /**
    * Returns true when the form data has changed from the original values.
    */
   hasChanged(): boolean {
-    return !isEqual(this.original, this.user);
+    return !isEqual(this.original, this.user)
   }
 
   /**
@@ -83,7 +83,7 @@ export class UpdateUserFormComponent implements OnInit {
    * is possible, i.e. the form is valid and there has been changes.
    */
   canSubmit(): boolean {
-    return this.updateUserForm.valid && this.hasChanged();
+    return this.updateUserForm.valid && this.hasChanged()
   }
 
   /**
@@ -93,12 +93,12 @@ export class UpdateUserFormComponent implements OnInit {
    * department.
    */
   departmentValidator(group: FormGroup): { required: boolean } {
-    if (group.controls["existingDepartment"].value === "" && group.controls["newDepartment"].value === "") {
-      group.controls["newDepartment"].setErrors({ required: true });
-      return { required: true };
+    if (group.controls['existingDepartment'].value === '' && group.controls['newDepartment'].value === '') {
+      group.controls['newDepartment'].setErrors({ required: true })
+      return { required: true }
     } else {
-      group.controls["newDepartment"].setErrors(null);
-      return null;
+      group.controls['newDepartment'].setErrors(null)
+      return null
     }
   }
 
@@ -106,27 +106,27 @@ export class UpdateUserFormComponent implements OnInit {
    * Get the Observable of a user from the service, then assign it.
    */
   ngOnInit() {
-    this.getUser();
+    this.getUser()
   }
 
   /**
    * Initialise form model from backend.
    */
   getUser() {
-    this.user = null;
+    this.user = null
     this.userService.getUpdateUser().subscribe(
       data => {
-        this.user = data;
-        this.original = cloneDeep(data);
-        this.existingDepartment = this.user.department;
-        this.newDepartment = "";
-        this.view = FormView.Form;
+        this.user = data
+        this.original = cloneDeep(data)
+        this.existingDepartment = this.user.department
+        this.newDepartment = ''
+        this.view = FormView.Form
       },
       err => {
-        this.errorMessage = err.message;
-        this.view = FormView.Error;
+        this.errorMessage = err.message
+        this.view = FormView.Error
       }
-    );
+    )
   }
 
   /**
@@ -135,28 +135,28 @@ export class UpdateUserFormComponent implements OnInit {
   updateUser(): void {
     this.userService.setUpdateUser(this.user).subscribe(
       (success: void) => {
-        this.view = FormView.SuccessConfirmation;
+        this.view = FormView.SuccessConfirmation
       },
       (error: ErrorResponse) => {
-        this.view = FormView.ErrorConfirmation;
+        this.view = FormView.ErrorConfirmation
       }
-    );
+    )
   }
 
   /**
    * Run to reset form to original state.
    */
   resetUser(): void {
-    this.user = _.cloneDeep(this.original);
-    this.existingDepartment = this.user.department;
-    this.newDepartment = "";
-    this.view = FormView.Form;
+    this.user = _.cloneDeep(this.original)
+    this.existingDepartment = this.user.department
+    this.newDepartment = ''
+    this.view = FormView.Form
   }
 
   /**
    * Takes the user back to the home page.
    */
   navigate(): void {
-    this.router.navigate(["Welcome"]);
+    this.router.navigate(['Welcome'])
   }
 }

@@ -1,17 +1,17 @@
-import {Injectable} from "@angular/core";
-import {Http, Response, Headers} from "@angular/http";
-import {Observable} from "rxjs/Observable";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/catch";
-import "rxjs/add/observable/throw";
+import {Injectable} from '@angular/core'
+import {Http, Response, Headers} from '@angular/http'
+import {Observable} from 'rxjs/Observable'
+import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/catch'
+import 'rxjs/add/observable/throw'
 
-import {UpdateUserDto} from "./update-user";
+import {UpdateUserDto} from './update-user'
 
-let query = require("query-string");
+let query = require('query-string')
 
 const API = {
-  update: "api/user/update",
-};
+  update: 'api/user/update',
+}
 
 @Injectable()
 export class UpdateUserService {
@@ -25,7 +25,7 @@ export class UpdateUserService {
   getUpdateUser(): Observable<UpdateUserDto> {
     return this.http.get(API.update)
                     .catch((err:Response) => Observable.throw(err.json()))
-                    .map((res:Response) => res.json());
+                    .map((res:Response) => res.json())
   }
 
   /**
@@ -34,12 +34,12 @@ export class UpdateUserService {
    * use by the calling component.
    */
   setUpdateUser(updateUserDto: UpdateUserDto): Observable<void> {
-    let headers = new Headers();
-    headers.append("Content-Type", "application/json");
+    let headers = new Headers()
+    headers.append('Content-Type', 'application/json')
     return this.http.put(API.update,
                          JSON.stringify(updateUserDto),
                          { headers: headers })
                     .catch((err:Response) => Observable.throw(err.json()))
-                    .map((res:Response) => null);
+                    .map((res:Response) => null)
   }
 }

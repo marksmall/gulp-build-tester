@@ -1,15 +1,15 @@
-import {Injectable} from "@angular/core";
-import {Http, Response, Headers} from "@angular/http";
-import {Observable} from "rxjs/Observable";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/catch";
-import "rxjs/add/observable/throw";
+import {Injectable} from '@angular/core'
+import {Http, Response, Headers} from '@angular/http'
+import {Observable} from 'rxjs/Observable'
+import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/catch'
+import 'rxjs/add/observable/throw'
 
-import {NotUserDto} from "./not-user";
+import {NotUserDto} from './not-user'
 
 const API = {
-  notuser: "api/user/not"
-};
+  notuser: 'api/user/not'
+}
 
 @Injectable()
 export class NotUserService {
@@ -23,7 +23,7 @@ export class NotUserService {
   getNotUser(): Observable<NotUserDto> {
     return this.http.get(API.notuser)
                     .catch((err:Response) => Observable.throw(err.json()))
-                    .map((res:Response) => res.json());
+                    .map((res:Response) => res.json())
   }
 
   /**
@@ -33,12 +33,12 @@ export class NotUserService {
    * use by the calling component.
    */
   setNotUser(notUserDto: NotUserDto): Observable<boolean> {
-    let headers = new Headers();
-    headers.append("Content-Type", "application/json");
+    let headers = new Headers()
+    headers.append('Content-Type', 'application/json')
     return this.http.put(API.notuser,
                          JSON.stringify(notUserDto),
                          { headers: headers })
                     .catch((err:Response) => Observable.throw(err.json()))
-                    .map((res:Response) => true);
+                    .map((res:Response) => true)
   }
 }
