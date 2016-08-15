@@ -22,7 +22,7 @@ describe('News Service', () => {
   it('should retrieve News Blog posts', fakeAsync(inject([BlogService, MockBackend],
     (blogService: BlogService, mockBackend: MockBackend) => {
     let response: Blog[]
-    let mockBody = '[{\'id\':1,\'title\':\'Mock Title\'}]'
+    let mockBody = '[{"id":1,"title":"Mock Title"}]'
 
     // Mock backend request and verify that the request URL is as expected.
     mockBackend.connections.subscribe((conn: any) => {
