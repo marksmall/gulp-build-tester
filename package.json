@@ -9,6 +9,10 @@
     "help": "gulp help",
     "test": "gulp test"
   },
+  "engines": {
+    "node": ">=4.4.7",
+    "npm": ">=3.10.6"
+  },
   "author": "",
   "license": "ISC",
   "jspm": {
