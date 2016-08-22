@@ -7,7 +7,13 @@
     "typings-install": "typings install",
     "setup": "npm install --no-optional && jspm install && jspm dl-loader && npm run typings-install",
     "help": "gulp help",
-    "test": "gulp test"
+    "test": "gulp test",
+    "serve": "nodemon --watch gulpfile.js --watch gulpfile.babel.js --watch package.json --watch .sass-lint.yml --watch .eslintrc.json --watch tsconfig.json --watch tslint.json --watch jspm.conf.js --exec gulp serve",
+    "start": "npm run serve",
+    "dist": "gulp dist",
+    "serve-dist": "nodemon --watch gulpfile.js --watch gulpfile.babel.js --watch package.json --watch .eslintrc.json --watch .sass-lint.yml --watch tsconfig.json --watch tslint.json --watch jspm.conf.js --exec gulp serve-dist",
+    "update": "npm install --no-optional && jspm update && jspm dl-loader && npm run typings-install",
+    "outdated": "npm outdated"
   },
   "engines": {
     "node": ">=4.4.7",
