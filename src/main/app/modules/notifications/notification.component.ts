@@ -21,31 +21,31 @@ import {Icons} from './icons'
     pipes: [MaxPipe],
     encapsulation: ViewEncapsulation.None,
     template: `
-        <div class='simple-notification'
-            (click)='removeSelf()'
-            [class]='theClass'
+        <div class="simple-notification"
+            (click)="removeSelf()"
+            [class]="theClass"
 
-            [ngClass]='{
+            [ngClass]="{
                 'alert': item.type === 'alert',
                 'error': item.type === 'error',
                 'success': item.type === 'success',
                 'info': item.type === 'info',
                 'bare': item.type === 'bare',
                 'rtl-mode': rtl
-            }'
+            }"
 
-            (mouseenter)='onEnter()'
-            (mouseleave)='onLeave()'>
+            (mouseenter)="onEnter()"
+            (mouseleave)="onLeave()">
 
-            <div *ngIf='!item.html'>
-                <div class='title'>{{item.title}}</div>
-                <div class='content'>{{item.content | max:maxLength}}</div>
-                <div *ngIf='item.type !== 'bare'' [innerHTML]='icons[item.type]'></div>
+            <div *ngIf="!item.html">
+                <div class="title">{{item.title}}</div>
+                <div class="content">{{item.content | max:maxLength}}</div>
+                <div *ngIf="item.type !== 'bare'" [innerHTML]="icons[item.type]"></div>
             </div>
-            <div *ngIf='item.html' [innerHTML]='item.html'></div>
+            <div *ngIf="item.html" [innerHTML]="item.html"></div>
 
-            <div class='progress' *ngIf='showProgressBar'>
-                <span [ngStyle]='{'width': progressWidth + '%'}'></span>
+            <div class="progress" *ngIf="showProgressBar">
+                <span [ngStyle]="{'width': progressWidth + '%'}"></span>
             </div>
 
         </div>
