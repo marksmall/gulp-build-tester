@@ -10,12 +10,8 @@ module.exports = function (config) {
     plugins: [
       'karma-jspm',
       'karma-jasmine',
-      'karma-phantomjs-launcher' // ,
-    //   'karma-chrome-launcher',
-    //   'karma-firefox-launcher',
-    //   'karma-ie-launcher',
-    //   'karma-junit-reporter',
-    //   'karma-spec-reporter'
+      'karma-phantomjs-launcher',
+      'karma-spec-reporter'
     ],
 
     // frameworks to use
