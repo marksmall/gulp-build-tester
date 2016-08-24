@@ -51,8 +51,8 @@ options.mangleProductionJSBundle = false // Mangled JS bundles are currently not
  */
 // options.systemjsConfigurationFile = 'my-systemjs.config.js'
 
-options.folders = {}
-options.folders.src = './src/main/app'
+// options.folders = {}
+// options.folders.src = './src/main/app'
 
 /*
   Set API proxy, this is the URL to listen for calls on, if one received, forward it on to the
