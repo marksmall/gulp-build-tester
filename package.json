@@ -78,7 +78,7 @@
   "devDependencies": {
     "babel-plugin-transform-es2015-modules-commonjs": "^6.11.5",
     "babel-preset-es2015": "^6.9.0",
-    "banger": "0.0.10",
+    "banger": "0.0.15",
     "body-parser": "^1.15.2",
     "dot": "^1.0.3",
     "eslint": "^3.2.2",
@@ -89,6 +89,7 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-help": "^1.6.1",
+    "imagemin-svgo": "^5.2.0",
     "jasmine-core": "^2.4.1",
     "jspm": "^0.16.42",
     "karma-jasmine": "^0.3.8",
